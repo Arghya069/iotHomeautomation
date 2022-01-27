@@ -146,3 +146,36 @@ def imp3control(request,pk,state):
     ledstat.imp_3 = state
     ledstat.save()
     return redirect('getimp3stat',pk)
+
+def Toggleimp1(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.imp_1==0:
+        ledstat.imp_1=1
+        ledstat.save()
+        return redirect('getimp1stat',pk)
+    else:
+        ledstat.imp_1=0
+        ledstat.save()
+        return redirect('getimp1stat',pk)      
+
+def Toggleimp2(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.imp_2==0:
+        ledstat.imp_2=1
+        ledstat.save()
+        return redirect('getimp2stat',pk)
+    else:
+        ledstat.imp_2=0
+        ledstat.save()
+        return redirect('getimp2stat',pk) 
+
+def Toggleimp3(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.imp_3==0:
+        ledstat.imp_3=1
+        ledstat.save()
+        return redirect('getimp3stat',pk)
+    else:
+        ledstat.imp_3=0
+        ledstat.save()
+        return redirect('getimp3stat',pk)
