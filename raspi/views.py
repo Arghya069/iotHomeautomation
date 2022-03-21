@@ -151,19 +151,19 @@ def Toggleimp1(request,pk,stat1):
     ledstat = LedStat.objects.get(device_id=pk)
     ledstat.imp_1= int(stat1)
     ledstat.save()
-    return redirect('getimp1stat',pk)
+    return redirect('getip1',pk)
    
 
 def Toggleimp2(request,pk,stat2):
     ledstat = LedStat.objects.get(device_id=pk)
     ledstat.imp_2= int(stat2)
     ledstat.save()
-    return redirect('getimp2stat',pk)
+    return redirect('getip2',pk)
 
 
 def Toggleimp3(request,pk,stat3):
     ledstat = LedStat.objects.get(device_id=pk)
     ledstat.imp_3= int(stat3)
     ledstat.save()
-    return redirect('getimp3stat',pk)
+    return redirect('getip3',pk)
  
