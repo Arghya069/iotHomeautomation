@@ -12,6 +12,10 @@ class LedStat(models.Model):
     imp_2   = models.IntegerField(null=False,choices=((0,0),(1,1)),default=0)
     imp_3   = models.IntegerField(null=False,choices=((0,0),(1,1)),default=0)
     temprature    = models.FloatField(null=False,default=0.0)
+    led4_status   = models.IntegerField(null=False,choices=((0,0),(1,1)),default=0)
+    led5_status   = models.IntegerField(null=False,choices=((0,0),(1,1)),default=0)
+    led6_status   = models.IntegerField(null=False,choices=((0,0),(1,1)),default=0)
+    led7_status   = models.IntegerField(null=False,choices=((0,0),(1,1)),default=0)
     def __str__(self):
         return self.device_id
 

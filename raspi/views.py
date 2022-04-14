@@ -61,6 +61,34 @@ def getimp3stat(request,pk):
     else:
         return HttpResponse("input3 is high")
 
+def getLED4stat(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.led4_status==0:
+        return HttpResponse("LED is off")
+    else:
+        return HttpResponse("LED is On")
+
+def getLED5stat(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.led5_status==0:
+        return HttpResponse("LED is off")
+    else:
+        return HttpResponse("LED is On")
+
+def getLED6stat(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.led6_status==0:
+        return HttpResponse("LED is off")
+    else:
+        return HttpResponse("LED is On")
+
+def getLED7stat(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.led7_status==0:
+        return HttpResponse("LED is off")
+    else:
+        return HttpResponse("LED is On")
+
 def ToggleLED1(request,pk):
     ledstat = LedStat.objects.get(device_id=pk)
     if ledstat.led1_status==0:
@@ -129,6 +157,50 @@ def Toggleimp3(request,pk):
         ledstat.save()
         return redirect('getip3',pk)
 
+def ToggleLED4(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.led4_status==0:
+        ledstat.led4_status=1
+        ledstat.save()
+        return redirect('getstat4',pk)
+    else:
+        ledstat.led4_status=0
+        ledstat.save()
+        return redirect('getstat4',pk)
+
+def ToggleLED5(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.led5_status==0:
+        ledstat.led5_status=1
+        ledstat.save()
+        return redirect('getstat5',pk)
+    else:
+        ledstat.led5_status=0
+        ledstat.save()
+        return redirect('getstat5',pk)
+
+def ToggleLED6(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.led6_status==0:
+        ledstat.led6_status=1
+        ledstat.save()
+        return redirect('getstat6',pk)
+    else:
+        ledstat.led6_status=0
+        ledstat.save()
+        return redirect('getstat6',pk)
+
+def ToggleLED7(request,pk):
+    ledstat = LedStat.objects.get(device_id=pk)
+    if ledstat.led7_status==0:
+        ledstat.led7_status=1
+        ledstat.save()
+        return redirect('getstat7',pk)
+    else:
+        ledstat.led7_status=0
+        ledstat.save()
+        return redirect('getstat7',pk)
+
 def sendControl(request,pk):
     ledstat = LedStat.objects.get(device_id=pk)
     return JsonResponse({'led1':str(ledstat.led1_status),
@@ -136,7 +208,11 @@ def sendControl(request,pk):
     'led3':str(ledstat.led3_status),
     'led4':str(ledstat.imp_1),
     'led5':str(ledstat.imp_2),
-    'led6':str(ledstat.imp_3)})
+    'led6':str(ledstat.imp_3),
+    'led7':str(ledstat.led4_status),
+    'led8':str(ledstat.led5_status),
+    'led9':str(ledstat.led6_status),
+    'led10':str(ledstat.led7_status),})
 
 
 def getTemp(request,pk):
