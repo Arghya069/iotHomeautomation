@@ -32,5 +32,8 @@ urlpatterns = [
     path('ip1control/<str:pk>/<int:state>', views.imp1control,name='ip1control'),
     path('ip2control/<str:pk>/<int:state>', views.imp2control,name='ip2control'),
     path('ip3control/<str:pk>/<int:state>', views.imp3control,name='ip3control'),
-    path('applogin',views.AppLogin,name='applogin')
+    path('applogin',views.AppLogin,name='applogin'),
+
+
+    path('dashboard/<str:pk>',views.dashboard,name='dashboard'),
 ]

@@ -206,9 +206,9 @@ def sendControl(request,pk):
     return JsonResponse({'led1':str(ledstat.led1_status),
     'led2':str(ledstat.led2_status),
     'led3':str(ledstat.led3_status),
-    'led4':str(ledstat.imp_1),
-    'led5':str(ledstat.imp_2),
-    'led6':str(ledstat.imp_3),
+    'input1':str(ledstat.imp_1),
+    'input2':str(ledstat.imp_2),
+    'input3':str(ledstat.imp_3),
     'led7':str(ledstat.led4_status),
     'led8':str(ledstat.led5_status),
     'led9':str(ledstat.led6_status),
@@ -247,18 +247,23 @@ def imp1control(request,pk,state):
     ledstat = LedStat.objects.get(device_id=pk)
     ledstat.imp_1 = state
     ledstat.save()
-    return redirect('getimp1stat',pk)
+    return redirect('getip1',pk)
 
 def imp2control(request,pk,state):
     ledstat = LedStat.objects.get(device_id=pk)
     ledstat.imp_2 = state
     ledstat.save()
-    return redirect('getimp2stat',pk)
+    return redirect('getip2',pk)
 
 def imp3control(request,pk,state):
     ledstat = LedStat.objects.get(device_id=pk)
     ledstat.imp_3 = state
     ledstat.save()
-    return redirect('getimp3stat',pk)
+    return redirect('getip3',pk)
 
- 
+
+def dashboard(request,pk):
+    context={}
+    ledstat = LedStat.objects.get(device_id=pk)
+    context['Stats']=ledstat
+    return render(request,'index.html',context)
