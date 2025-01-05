@@ -9,51 +9,109 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
+        body {
+            background: linear-gradient(120deg, #001f3f, #003366);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
         .indicator {
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: inline-block;
-            margin-left: 10px;
+            margin-right: 10px;
         }
+
         .red {
             background-color: red;
         }
+
         .green {
             background-color: green;
         }
+
+        .switch-control {
+            transform: scale(1.5);
+        }
+
+        .label {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .row {
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .col {
+            text-align: center;
+        }
+
+        .form-check {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
     </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Home Automation Panel</h1>
+        <h1 class="text-center mb-4">Home Automation Panel</h1>
 
-        <div class="mt-4">
-            <!-- Switch 1 -->
-            <div class="d-flex align-items-center mb-3">
-                <label class="form-check-label me-3">Switch 1 : {{Stats.led1_status}}</label>
+        <div class="row">
+            <!-- Switches -->
+            <div class="col">
+                <label class="label">Switch 1</label>
                 <div class="form-check form-switch">
                     <input class="form-check-input switch-control" type="checkbox" id="switch1" {% if Stats.led1_status == 1 %}checked{% endif %}>
                 </div>
-                <span class="indicator {% if Stats.imp1 == 1 %}green{% else %}red{% endif %}" id="indicator1"></span>
             </div>
 
-            <!-- Switch 2 -->
-            <div class="d-flex align-items-center mb-3">
-                <label class="form-check-label me-3">Switch 2 : {{Stats.led2_status}}</label>
+            <div class="col">
+                <label class="label">Switch 2</label>
                 <div class="form-check form-switch">
                     <input class="form-check-input switch-control" type="checkbox" id="switch2" {% if Stats.led2_status == 1 %}checked{% endif %}>
                 </div>
-                <span class="indicator {% if Stats.imp2 == 1 %}green{% else %}red{% endif %}" id="indicator2"></span>
             </div>
 
-            <!-- Switch 3 -->
-            <div class="d-flex align-items-center mb-3">
-                <label class="form-check-label me-3">Switch 3 : {{Stats.led3_status}}</label>
+            <div class="col">
+                <label class="label">Switch 3</label>
                 <div class="form-check form-switch">
                     <input class="form-check-input switch-control" type="checkbox" id="switch3" {% if Stats.led3_status == 1 %}checked{% endif %}>
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Indicators -->
+            <div class="col">
+                <span class="indicator {% if Stats.imp1 == 1 %}green{% else %}red{% endif %}" id="indicator1"></span>
+                <div class="label">Input 1</div>
+            </div>
+
+            <div class="col">
+                <span class="indicator {% if Stats.imp2 == 1 %}green{% else %}red{% endif %}" id="indicator2"></span>
+                <div class="label">Input 2</div>
+            </div>
+
+            <div class="col">
                 <span class="indicator {% if Stats.imp3 == 1 %}green{% else %}red{% endif %}" id="indicator3"></span>
+                <div class="label">Input 3</div>
             </div>
         </div>
     </div>
@@ -63,13 +121,14 @@
     <script>
         $(document).ready(function() {
             const deviceId = `{{Stats.device_id}}`;
+
             $('.switch-control').on('change', function() {
                 const switchId = $(this).attr('id');
                 const url = `/${switchId}/${deviceId}`;
                 $.ajax({
-                    url:url,
-                    type:'GET'
-                })
+                    url: url,
+                    type: 'GET'
+                });
             });
 
             function updateUI(data) {
@@ -85,11 +144,11 @@
             }
 
             // Periodic AJAX request
-            setInterval(function () {
+            setInterval(function() {
                 $.ajax({
                     url: `/control/${deviceId}`,
                     type: 'GET',
-                    success: function (response) {
+                    success: function(response) {
                         try {
                             const data = response; // Parse the JSON response
                             updateUI(data); // Update the UI with the new data
@@ -97,14 +156,12 @@
                             console.error("Error parsing response:", e);
                         }
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.error("AJAX Error:", error);
                     }
                 });
             }, 1000);
         });
-
-
     </script>
 </body>
 </html>
